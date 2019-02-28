@@ -9,11 +9,89 @@
 #include<string.h>
 using namespace std;
 
+void P1583() {
+
+	int n, k;
+	//cin >> n >> k;
+	scanf("%d%d", &n, &k);
+	int* E = new int[10]; // addtional weight 
+	int* W = new int[n]; // weight 
+	int* W1 = new int[n]; // weight 
+	int* D = new int[n]; //order 
+	int* sum = new int[n]; // final weight  
+
+	/*
+	for (int i = 0; i < 10; i++) {
+		cin >> E[i];
+	}
+
+	for (int i = 0; i < n; i++) {
+		cin >> W[i];
+		W1[i] = W[i];
+		sum[i] = 0;
+	}
+	*/
+
+	for (int i = 0; i < 10; i++) {
+		scanf("%d", &E[i]);
+	}
+
+	for (int i = 0; i < n; i++) {
+		scanf("%d", &W[i]);
+		W1[i] = W[i];
+		sum[i] = 0;
+	}
+
+	int temp;
+	int out;
+	// get D[i]
+	for (int j = 0; j < n; j++) {
+		temp = 0;
+		out = 0;
+		for (int i = 0; i < n; i++) {
+
+			if (W1[i] > temp) {
+				temp = W[i];
+				out = i + 1;
+			}
+		}
+		D[out - 1] = j;
+		W1[out - 1] = 0;
+	}
+
+	for (int i = 0; i < n; i++) {
+		sum[i] = W[i] + E[D[i] % 10];
+	}
+
+
+
+	for (int j = 0; j < k; j++) {
+
+		temp = 0;
+		out = 0;
+
+		for (int i = 0; i < n; i++) {
+
+			if (sum[i] > temp) {
+				temp = sum[i];
+				out = i + 1;
+			}
+		}
+		//cout << out << " ";
+		printf("%d ", out);
+		sum[out - 1] = 0;
+	}
+
+
+}
 
 int main() {
-	
+
+	P1583();
 	return 0;
 }
+
+
 
 void addE(int* number, int* grade, vector<int>* out, int index) {
 
