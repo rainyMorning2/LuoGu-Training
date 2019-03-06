@@ -7,7 +7,154 @@
 #include<algorithm>
 #include<list>
 #include<string.h>
+#include<cstdio>
+#include<cmath>
 using namespace std;
+
+
+int main() {
+	
+	P1449();
+	system("pause");
+	return 0;
+}
+
+
+void P1449(){
+
+	stack<int> num;
+	char str[1000]={0};
+	bool flag = true;
+
+	for(int i=0;i<1000;i++){
+		cin>>str[i];
+		if(str[i]=='@'){
+			break;
+		}
+	}
+
+	num.push(0);
+	int temp1,temp2;
+	for(int i=0;str[i]!='@';i++){
+		
+		if(str[i]>='0' && str[i]<='9'){
+			if(flag){
+				int temp = num.top();
+				num.pop();
+				num.push(temp*10+str[i]-'0');
+			}else{
+				num.push(str[i]-'0');
+				flag = true;
+			}
+		}else if(str[i]=='.'){
+			flag = false;
+		}else{
+			switch (str[i]){
+				case '+':
+					temp2 = num.top();
+					num.pop();
+					temp1 = num.top();
+					num.pop();
+					num.push(temp1+temp2);
+					break;
+				case '-':
+					temp2 = num.top();
+					num.pop();
+					temp1 = num.top();
+					num.pop();
+					num.push(temp1-temp2);
+					break;
+				case '*':
+					temp2 = num.top();
+					num.pop();
+					temp1 = num.top();
+					num.pop();
+					num.push(temp1*temp2);
+					break;
+				case '/':
+					temp2 = num.top();
+					num.pop();
+					temp1 = num.top();
+					num.pop();
+					num.push(temp1/temp2);
+					break;
+				default:
+					break;
+			}
+
+		}
+	}
+	cout<<num.top()<<endl;
+
+}
+
+void P1739(){
+
+	int count = 0;
+	char string[255] ={0};
+	for(int i=0;i<255;i++){
+		
+		cin>>string[i];
+		if(string[i] == '@'){
+			break;
+		}
+
+	}
+
+	
+	for(int i=0;i<255;i++){
+		
+		if(string[i]=='('){
+			count ++;
+		}else if(string[i]==')'){
+			if(count<=0){
+				cout<<"NO"<<endl;
+				break;
+			}else{
+				count --;
+			}
+		}else if(string[i] == '@'){
+			if(count==0){
+				cout<<"YES"<<endl;
+			}else{
+				cout<<"NO"<<endl;
+			}
+			break;
+		}else{
+			continue;
+		}
+
+	}
+
+}
+
+void P1996(){
+
+	int n,m;
+	cin>>n>>m;
+
+	int* quene = new int[n];
+	memset(quene,0,sizeof(int)*n);
+	int k = n;
+	int count = 1;
+	while(k>0){
+		for(int i=0;i<n;i++){
+			if(!quene[i]){
+				if(count == m ){
+					quene[i] = 1;
+					k--;
+					cout<< i+1<<" ";
+					count = 1; 
+				}else{
+					count += 1;
+				}
+				
+			}
+		}
+	}
+	
+}
+
 
 void P1583() {
 
@@ -84,13 +231,6 @@ void P1583() {
 
 
 }
-
-int main() {
-
-	P1583();
-	return 0;
-}
-
 
 
 void addE(int* number, int* grade, vector<int>* out, int index) {
@@ -1128,8 +1268,8 @@ int getMax(int num) {
 	count++;
 	getMax(num / 10);
 }
-vector<int> genNums(vector<int> number, int size) {//1-1,2-1,3-2,4-2,5-3,6-3 size:Î»Êý
-												   //needs (size+1)/2 times loop 
+vector<int> genNums(vector<int> number, int size) {//1-1,2-1,3-2,4-2,5-3,6-3 sizeï¼š
+													//needs (size+1)/2 times loop 
 
 	if (size == 1) {
 		for (int i = 0; i <= 9; i++) {
