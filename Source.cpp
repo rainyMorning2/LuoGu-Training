@@ -4,19 +4,123 @@
 #include<vector>
 #include<set>
 #include<stack>
+#include<queue>
 #include<algorithm>
 #include<list>
 #include<string.h>
-#include<cstdio>
-#include<cmath>
 using namespace std;
 
+void P1309(){
+
+}
 
 int main() {
 	
-	P1449();
+	P1309();
 	system("pause");
 	return 0;
+}
+
+void myStrcpy(char* dest,char *src){
+	int i=0;
+	for(;src[i]!='\0';i++){
+		dest[i] = src[i];
+	}
+	dest[i] = '\0';
+}
+
+void P1051(){
+
+	int N;
+	cin>>N;
+	
+	char* name = new char[20];
+	int max = 0;
+	int total = 0;
+
+	char* tempName = new char[20];
+	int score1;
+	int score2;
+	char str1;
+	char str2;
+	int paper;
+	int temp = 0; 
+	for(int i=0;i<N;i++){
+		cin>>tempName>>score1>>score2>>str1>>str2>>paper;
+		// cout<<tempName<<score1<<score2<<str1<<str2<<paper<<endl;
+		if(score1> 80 && paper>=1){
+			temp += 8000;
+		}
+		if(score1>85 && score2>80){
+			temp += 4000;
+		}
+		if(score1>90){
+			temp += 2000;
+		}
+		if(score1>85 && str2=='Y'){
+			temp += 1000;
+		}
+		if(score2>80 && str1 =='Y'){
+			temp +=850;
+		}
+
+		if(temp>max){
+			myStrcpy(name,tempName);
+			max = temp;
+		}
+		total += temp;
+		temp = 0;
+	}
+
+	cout<<name<<endl<<max<<endl<<total<<endl;
+	
+}
+
+void P1160(){
+	int N,M;
+	int k,p;
+	cin >> N;
+	list<int> q;
+	q.push_back(1);
+
+	list<int>::iterator it;
+	for(int i=2;i<N+1;i++){
+		cin>>k>>p;
+		for(it=q.begin();it!=q.end();it++){
+			if(*it==k){
+				if(p==0){
+					q.insert(it,i);
+					break;
+				}else{
+					q.insert(++it,i);
+					break;
+				}
+			}
+		}
+	}
+	cin>>M;
+	int x;
+	vector<int> out;
+	for(int i=0;i<M;i++){
+		cin>>x;
+		if(find(out.begin(),out.end(),x)==out.end()){
+			for(it=q.begin();it!=q.end();it++){
+				if(*it==x){
+					out.push_back(x);
+					q.erase(it);
+					break;
+				}
+			}
+		}else{
+			continue;
+		}
+		
+	}
+	
+	for(it=q.begin();it!=q.end();it++){
+		cout<<*it<<" ";
+	}
+	cout<<endl;
 }
 
 
